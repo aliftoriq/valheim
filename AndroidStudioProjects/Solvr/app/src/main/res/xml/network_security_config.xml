@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allows cleartext (HTTP) traffic for certain domains -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">34.170.91.53</domain>
+    </domain-config>
+</network-security-config>

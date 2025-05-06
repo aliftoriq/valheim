@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Tema utama (dipakai di semua activity, kecuali splash) -->
+    <style name="Theme.Solvr" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Sesuaikan dengan style app kamu -->
+    </style>
+
+    <!-- Tema khusus SplashActivity -->
+    <style name="Theme.Solvr.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+</resources>

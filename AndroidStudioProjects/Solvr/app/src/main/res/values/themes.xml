@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+<!--     Base theme -->
+    <style name="Base.Theme.Solvr" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="Theme.Solvr" parent="Base.Theme.Solvr" />
+
+    <!-- Splash Theme -->
+    <style name="Theme.Solvr.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
+</resources>
+
+
