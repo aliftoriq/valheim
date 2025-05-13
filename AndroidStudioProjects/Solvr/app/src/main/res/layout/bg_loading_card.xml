@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/card_bronze"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Judul -->
+        <View
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_gradient_vertical_rd5"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Level -->
+        <View
+            android:layout_width="80dp"
+            android:layout_height="14dp"
+            android:background="@drawable/bg_gradient_vertical_rd5"
+            android:layout_marginBottom="6dp"/>
+
+        <!-- Rate Tenor -->
+        <View
+            android:layout_width="120dp"
+            android:layout_height="14dp"
+            android:background="@drawable/bg_gradient_vertical_rd5"
+            android:layout_marginBottom="6dp"/>
+
+        <!-- Nominal -->
+        <View
+            android:layout_width="140dp"
+            android:layout_height="20dp"
+            android:background="@drawable/bg_gradient_vertical_rd5"
+            android:layout_marginBottom="8dp"/>
+    </LinearLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

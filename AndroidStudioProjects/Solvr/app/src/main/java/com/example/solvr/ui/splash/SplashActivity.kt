@@ -5,17 +5,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.example.solvr.ui.user.UserActivity
+import com.example.solvr.MainActivity
+import com.example.solvr.R
 
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
 
-        // Delay diubah dari 30000 menjadi 2000 (2 detik)
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, UserActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             finish()
         }, 2000)
     }

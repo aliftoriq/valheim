@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.plafond.PlafondFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Logo + Notif -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="104dp"
+                android:layout_height="43dp"
+                android:src="@drawable/solvr_landscape" />
+
+            <ImageView
+                android:id="@+id/notif"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_nontification"
+                app:tint="@color/primary" />
+        </RelativeLayout>
+
+        <!--   CARD PLAFON SAAT INI     -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Background Card -->
+            <ImageView
+                android:id="@+id/bg_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/card_bronze" />
+
+            <!-- Bronze Package -->
+            <TextView
+                android:id="@+id/title_package"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/bg_card"
+                android:layout_alignTop="@id/bg_card"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="Bronze Package"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Level : 1 -->
+
+            <!-- Rate dan Tenor -->
+
+            <TextView
+                android:id="@+id/level_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_package"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="28dp"
+                android:text="Level : 1"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/rate_tenor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/level_text"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:text="Rate 1.5 - Tenor 6"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+
+            <!-- Rp. 10.000.000,- -->
+            <TextView
+                android:id="@+id/nominal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rate_tenor"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Rp. 10.000.000,-"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Logo kecil di kanan bawah -->
+            <ImageView
+                android:id="@+id/solvr_logo"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="28dp"
+                android:paddingBottom="30dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/solvr_landscape_white" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="Plafond saat ini"
+            android:textColor="@color/primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:id="@+id/headerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_gradient_vertical"
+            android:minHeight="100dp">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="20dp">
+
+                <ImageView
+                    android:layout_width="104dp"
+                    android:layout_height="43dp"
+                    android:src="@drawable/solvr_landscape_white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Riwayat Pinjaman"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_plaffon" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Simulation Section -->
+
+        <!-- Bottom Navigation -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-40dp"
+            android:background="@drawable/bg_white_rounded"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="left"
+                android:text="Paket Palfon"
+                android:textColor="@color/primary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+<!--            &lt;!&ndash;   CARD PLAFON SAAT INI     &ndash;&gt;-->
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp">-->
+
+<!--                &lt;!&ndash; Background Card &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/bg_card1"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:src="@drawable/card_silver" />-->
+
+<!--                &lt;!&ndash; Bronze Package &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/title_package1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignStart="@id/bg_card1"-->
+<!--                    android:layout_alignTop="@id/bg_card1"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="32dp"-->
+<!--                    android:text="Bronze Package"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                &lt;!&ndash; Level : 1 &ndash;&gt;-->
+
+<!--                &lt;!&ndash; Rate dan Tenor &ndash;&gt;-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/level_text1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/title_package1"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:text="Level : 1"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/rate_tenor1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/level_text1"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="Rate 1.5 - Tenor 6"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="14sp" />-->
+
+<!--                &lt;!&ndash; Rp. 10.000.000,- &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/nominal1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/rate_tenor1"-->
+<!--                    android:layout_marginStart="24dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:text="Rp. 10.000.000,-"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                &lt;!&ndash; Logo kecil di kanan bawah &ndash;&gt;-->
+<!--                <ImageView-->
+<!--                    android:layout_width="80dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    android:layout_marginRight="24dp"-->
+<!--                    android:paddingBottom="30dp"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:src="@drawable/solvr_landscape_white" />-->
+<!--            </RelativeLayout>-->
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmerLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/card_bronze"
+                android:layout_gravity="center"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Judul -->
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/bg_gradient_vertical_rd5"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Level -->
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="14dp"
+                        android:background="@drawable/bg_gradient_vertical_rd5"
+                        android:layout_marginBottom="6dp"/>
+
+                    <!-- Rate Tenor -->
+                    <View
+                        android:layout_width="120dp"
+                        android:layout_height="14dp"
+                        android:background="@drawable/bg_gradient_vertical_rd5"
+                        android:layout_marginBottom="6dp"/>
+
+                    <!-- Nominal -->
+                    <View
+                        android:layout_width="140dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/bg_gradient_vertical_rd5"
+                        android:layout_marginBottom="8dp"/>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <!-- RecyclerView horizontal di sini -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPlafon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:layout_marginBottom="16dp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

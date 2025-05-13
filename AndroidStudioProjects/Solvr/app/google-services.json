@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "466390029064",
+    "project_id": "solvr-26c8f",
+    "storage_bucket": "solvr-26c8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466390029064:android:bed6485154af4d854092bd",
+        "android_client_info": {
+          "package_name": "com.example.solvr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9HaYY1u-eSmyqzNHyHIsm2QDSbx_hJMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

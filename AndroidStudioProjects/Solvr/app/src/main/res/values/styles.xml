@@ -11,6 +11,7 @@
         <item name="hintTextColor">@color/primary</item>
         <item name="android:textColorHint">@color/primary</item>
         <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">16sp</item>
         <item name="startIconTint">@color/primary</item>
         <item name="endIconTint">@color/primary</item>
     </style>

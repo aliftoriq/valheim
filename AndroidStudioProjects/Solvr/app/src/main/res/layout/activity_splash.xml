@@ -15,15 +15,14 @@
     <!-- Gambar di bawah dengan margin yang diperbaiki -->
     <ImageView
         android:id="@+id/bottomImage"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_below="@+id/centerIcon"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:src="@mipmap/solver_bottom_splash_foreground" />
+        android:layout_marginTop="147dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginBottom="-72dp"
+        android:src="@drawable/solusi_tepat" />
 </RelativeLayout>

@@ -10,7 +10,11 @@
         android:icon="@drawable/ic_pengajuan"
         android:title="Pengajuan" />
 
-    <!-- TIDAK ADA item tengah -->
+    <item
+        android:id="@+id/nav_dummy"
+        android:enabled="false"
+        android:title=""
+        android:checkable="false" />
 
     <item
         android:id="@+id/nav_plafon"

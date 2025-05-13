@@ -15,4 +15,18 @@ interface AuthService {
     @Headers("Content-Type: application/json")
     @POST("auth/register")
     fun register(@Body request: AuthDTO.RegisterRequest): Call<CommonDTO.ResponseTemplate>
+
+    @Headers("Content-Type: application/json")
+    @POST("auth/logout")
+    fun logout(): Call<CommonDTO.ResponseTemplate>
+
+
+
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST("notification")
+    fun refreshToken(@Body request: AuthDTO.FirebaseTokenRequest): Call<Any>
+
 }

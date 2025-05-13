@@ -36,4 +36,8 @@ class AuthDTO {
     data class Role(
         val id: Int,
     )
+
+    data class FirebaseTokenRequest(
+        val token: String
+    )
 }
