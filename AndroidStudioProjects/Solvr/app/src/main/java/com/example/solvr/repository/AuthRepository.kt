@@ -9,15 +9,15 @@ import retrofit2.Call
 
 class AuthRepository {
     fun loginUser(request: LoginRequest): Call<LoginResponse> {
-        return ApiClient.instance.login(request)
+        return ApiClient.authService.login(request)
     }
 
     fun registerUser(request: RegisterRequest): Call<ResponseTemplate> {
-        return ApiClient.instance.register(request)
+        return ApiClient.authService.register(request)
     }
 
     fun saveFirebaseToken(token: String): Call<Any> {
         val request = AuthDTO.FirebaseTokenRequest(token)
-        return ApiClient.instance.refreshToken(request)
+        return ApiClient.authService.refreshToken(request)
     }
 }

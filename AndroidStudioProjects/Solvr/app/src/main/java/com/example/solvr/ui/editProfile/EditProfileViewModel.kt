@@ -1,5 +1,6 @@
 package com.example.solvr.ui.editProfile
 
+import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
@@ -9,9 +10,13 @@ import androidx.lifecycle.ViewModel
 import com.example.solvr.models.UserDTO
 import com.example.solvr.repository.UserRepository
 import com.example.solvr.ui.profile.EditProfileActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class EditProfileViewModel : ViewModel() {
 
@@ -32,11 +37,13 @@ class EditProfileViewModel : ViewModel() {
     private val _isHaveDetail = MutableLiveData<Boolean>()
     val isHaveDetail: LiveData<Boolean> get() = _isHaveDetail
 
+    private val _uploadResult = MutableLiveData<Boolean>()
+    val uploadResult: LiveData<Boolean> get() = _uploadResult
+
     fun fetchUserDetail() {
         userRepository.getUSerDetail().enqueue(object : Callback<UserDTO.Response> {
             override fun onResponse(
-                call: Call<UserDTO.Response>,
-                response: Response<UserDTO.Response>
+                call: Call<UserDTO.Response>, response: Response<UserDTO.Response>
             ) {
                 val code = response.code()
                 val body = response.body()
@@ -62,7 +69,9 @@ class EditProfileViewModel : ViewModel() {
 
     fun createUser(request: UserDTO.Request) {
         userRepository.createUser(request).enqueue(object : Callback<UserDTO.Response> {
-            override fun onResponse(call: Call<UserDTO.Response>, response: Response<UserDTO.Response>) {
+            override fun onResponse(
+                call: Call<UserDTO.Response>, response: Response<UserDTO.Response>
+            ) {
                 if (response.isSuccessful && response.body() != null) {
                     _userDetail.postValue(response.body()?.data)
                     _updateSuccess.postValue(true)
@@ -79,7 +88,9 @@ class EditProfileViewModel : ViewModel() {
 
     fun updateUser(request: UserDTO.Request) {
         userRepository.updateUser(request).enqueue(object : Callback<UserDTO.Response> {
-            override fun onResponse(call: Call<UserDTO.Response>, response: Response<UserDTO.Response>) {
+            override fun onResponse(
+                call: Call<UserDTO.Response>, response: Response<UserDTO.Response>
+            ) {
                 if (response.isSuccessful && response.body() != null) {
                     _userDetail.postValue(response.body()?.data)
                     _updateSuccess.postValue(true)
@@ -92,5 +103,62 @@ class EditProfileViewModel : ViewModel() {
                 _errorMessage.postValue("Kesalahan jaringan saat update: ${t.message}")
             }
         })
+    }
+
+    fun uploadProfilePicture(context: Context, imageFile: File) {
+        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+
+        ApiClient.userService.uploadProfileImage(body).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    _uploadResult.postValue(true)
+                } else {
+                    _errorMessage.postValue("Gagal upload: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                _errorMessage.postValue("Error: ${t.localizedMessage}")
+            }
+        })
+    }
+
+    fun uploadKtp(context: Context, imageFile: File) {
+        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+
+        ApiClient.userService.uploadKtpImage(body).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        _uploadResult.postValue(true)
+                    } else {
+                        _errorMessage.postValue("Gagal upload: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    _errorMessage.postValue("Error: ${t.localizedMessage}")
+                }
+            })
+    }
+
+    fun uploadSelfie(context: Context, imageFile: File) {
+        val requestFile = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("file", imageFile.name, requestFile)
+
+        ApiClient.userService.uploadSelfieImage(body).enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        _uploadResult.postValue(true)
+                    } else {
+                        _errorMessage.postValue("Gagal upload: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    _errorMessage.postValue("Error: ${t.localizedMessage}")
+                }
+            })
     }
 }

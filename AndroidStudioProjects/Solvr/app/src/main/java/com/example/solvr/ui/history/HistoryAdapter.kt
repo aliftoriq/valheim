@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.solvr.R
 import com.example.solvr.models.LoanDTO
 
-class LoanHistoryAdapter(private var historyList: List<LoanDTO.DataItem>) :
-    RecyclerView.Adapter<LoanHistoryAdapter.HistoryViewHolder>() {
+class HistoryAdapter(private var historyList: List<LoanDTO.DataItem>) :
+    RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     // Update history data without recreating the adapter
     fun updateData(newHistoryList: List<LoanDTO.DataItem>) {

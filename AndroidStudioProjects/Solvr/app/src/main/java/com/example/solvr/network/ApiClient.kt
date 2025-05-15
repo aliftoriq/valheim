@@ -12,8 +12,8 @@ import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
 object ApiClient {
-//    private const val BASE_URL = "http://34.170.91.53/be/api/v1/"
-    private const val BASE_URL = "https://3b08-114-125-93-58.ngrok-free.app/api/v1/"
+    private const val BASE_URL = "http://34.45.191.98/be/api/v1/"
+//    private const val BASE_URL = "https://3b08-114-125-93-58.ngrok-free.app/api/v1/"
     private const val TAG = "API_LOGGER"
 
     private lateinit var okHttpClient: OkHttpClient
@@ -25,7 +25,7 @@ object ApiClient {
     }
 
 
-    val instance: AuthService by lazy {
+    val authService: AuthService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)

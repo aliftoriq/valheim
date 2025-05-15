@@ -21,9 +21,13 @@ interface AuthService {
     fun logout(): Call<CommonDTO.ResponseTemplate>
 
 
+    @Headers("Content-Type: application/json")
+    @POST("auth/change-password")
+    fun cangePassword(@Body request: AuthDTO.ChangePasswordRequest): Call<CommonDTO.ResponseTemplate>
 
-
-
+    @Headers("Content-Type: application/json")
+    @POST("auth/forget-password")
+    fun forgetPassword(@Body request: AuthDTO.ForgotPasswordRequest): Call<CommonDTO.ResponseTemplate>
 
     @Headers("Content-Type: application/json")
     @POST("notification")

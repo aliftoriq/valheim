@@ -16,7 +16,7 @@ class HistoryActivity : AppCompatActivity() {
 
     private val viewModel: HistoryViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: LoanHistoryAdapter
+    private lateinit var adapter: HistoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class HistoryActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.historyRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = LoanHistoryAdapter(emptyList())
+        adapter = HistoryAdapter(emptyList())
         recyclerView.adapter = adapter
 
         viewModel.fetchHistory()

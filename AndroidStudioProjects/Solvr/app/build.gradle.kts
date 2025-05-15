@@ -54,6 +54,10 @@ dependencies {
     implementation(libs.androidx.cardview)
     implementation(libs.androidx.recyclerview)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -65,4 +69,6 @@ dependencies {
     implementation(libs.security.crypto)
 
     implementation(libs.shimmer)
+    implementation(libs.google.gms.auth)
+//    implementation(libs.play.services.location)
 }

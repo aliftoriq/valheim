@@ -96,7 +96,7 @@ class FirebaseService : FirebaseMessagingService() {
             .setAutoCancel(true)
             .setSound(soundUri)
             .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH) // <-- penting untuk pop-up
+            .setPriority(NotificationCompat.PRIORITY_HIGH) //
 
         notificationManager.notify(0, notificationBuilder.build())
     }

@@ -1,6 +1,8 @@
 package com.example.solvr.ui.plafond
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,9 +55,12 @@ class PlafondFragment : Fragment() {
                 plafonAdapter = PlafonAdapter(it as List<PlafonDTO.DataItem>)
                 plafonRecyclerView.adapter = plafonAdapter
 
-                shimmerLayout.stopShimmer()
-                shimmerLayout.visibility = View.GONE
-                plafonRecyclerView.visibility = View.VISIBLE
+                Handler(Looper.getMainLooper()).postDelayed({
+                    plafonRecyclerView.visibility = View.VISIBLE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
+                }, 1000)
+
             }
             root.findViewById<RecyclerView>(R.id.recyclerPlafon).startAnimation(animBottom)
         })

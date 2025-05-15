@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary"
     android:fillViewport="true"
     tools:context=".ui.auth.LoginActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
+        <!-- Logo -->
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="235dp"
             android:layout_height="105dp"
             android:layout_marginTop="112dp"
-            android:contentDescription="Solvr Logo"
             android:src="@drawable/login_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="Solvr Logo" />
 
+        <!-- Welcome Text -->
         <TextView
             android:id="@+id/txtWelcome"
             android:layout_width="wrap_content"
@@ -31,49 +32,41 @@
             android:text="Selamat Datang Solvr-gengs!"
             android:textColor="@android:color/white"
             android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+            android:textStyle="bold" />
 
+        <!-- Subtitle -->
         <TextView
             android:id="@+id/txtSubtitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
             android:layout_marginTop="8dp"
-            android:gravity="center"
+            android:layout_marginHorizontal="32dp"
             android:text="Login dulu yuk sebelum lanjut, Pastikan email dan password yang kamu masukan sudah benar"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtWelcome" />
+            android:gravity="center" />
 
+        <!-- CardView Container -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtSubtitle">
+            app:cardBackgroundColor="@android:color/white">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="24dp">
 
-                <!-- Email Field -->
+                <!-- Email -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/emailLayout"
                     style="@style/SolvrInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="36dp"
                     app:startIconDrawable="@drawable/mail">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -85,16 +78,15 @@
                         app:boxStrokeColor="@color/primary" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Password Field -->
+                <!-- Password -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/passwordLayout"
                     style="@style/SolvrInputStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:endIconMode="password_toggle"
-                    app:layout_constraintTop_toBottomOf="@id/emailLayout"
-                    app:startIconDrawable="@drawable/lock">
+                    app:startIconDrawable="@drawable/lock"
+                    app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtPassword"
@@ -105,46 +97,57 @@
                         app:boxStrokeColor="@color/primary" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Forgot Password -->
+                <TextView
+                    android:id="@+id/btnForgetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="end"
+                    android:text="Lupa Password?"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp" />
+
                 <!-- Login Button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:backgroundTint="@color/secondary"
                     android:text="LOGIN"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:cornerRadius="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/passwordLayout" />
+                    app:cornerRadius="12dp" />
 
-                <!-- Register Link -->
-                <TextView
-                    android:id="@+id/txtRegisterPrompt"
+                <!-- Register Prompt -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="Belum punya akun? "
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@id/btnRegisterPage"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
 
-                <TextView
-                    android:id="@+id/btnRegisterPage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bikin dulu Yuk"
-                    android:textColor="@color/secondary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/txtRegisterPrompt"
-                    app:layout_constraintTop_toTopOf="@id/txtRegisterPrompt" />
+                    <TextView
+                        android:id="@+id/txtRegisterPrompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Belum punya akun? "
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
 
+                    <TextView
+                        android:id="@+id/btnRegisterPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bikin dulu Yuk"
+                        android:textColor="@color/secondary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Or -->
                 <TextView
                     android:id="@+id/txtOr"
                     android:layout_width="wrap_content"
@@ -153,26 +156,21 @@
                     android:text="Atau"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtRegisterPrompt" />
+                    android:gravity="center"
+                    android:layout_gravity="center" />
 
-                <!-- Google Sign In -->
+                <!-- Google Login -->
                 <ImageView
-                    android:id="@+id/btnGoogle"
+                    android:id="@+id/btnGoogleSignIn"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="80dp"
-                    android:contentDescription="Login dengan Google"
                     android:src="@mipmap/ic_google_foreground"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txtOr" />
+                    android:contentDescription="Login dengan Google"
+                    android:layout_gravity="center" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

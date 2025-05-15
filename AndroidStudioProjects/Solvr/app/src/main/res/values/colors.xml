@@ -6,5 +6,7 @@
     <color name="cyan">#00BCD4</color>
     <color name="primary">#0C4BAC</color>
     <color name="secondary">#00A6B5</color>
+    <color name="danger">#EA4334</color>
+    <color name="danger_secondary">#FF8787</color>
 
 </resources>

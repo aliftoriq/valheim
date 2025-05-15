@@ -40,6 +40,9 @@ class UserDTO {
         val accountNumber: String? = null,
         val plafonPackage: PlafonPackage? = null,
         val birthDate: String? = null,
-        val monthlyIncome: Any? = null
+        val monthlyIncome: Any? = null,
+        val urlProfilePicture: String? = null,
+        val urlKtp: String? = null,
+        val urlSelfie: String? = null
     )
 }

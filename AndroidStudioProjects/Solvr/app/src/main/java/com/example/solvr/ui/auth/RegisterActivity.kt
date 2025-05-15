@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.solvr.R
 import com.example.solvr.databinding.ActivityRegisterBinding
 import com.example.solvr.models.AuthDTO
 import com.example.solvr.models.AuthDTO.RegisterRequest
@@ -55,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
 
         showLoading(true)
 
-        ApiClient.instance.register(registerRequest).enqueue(object : Callback<ResponseTemplate> {
+        ApiClient.authService.register(registerRequest).enqueue(object : Callback<ResponseTemplate> {
             override fun onResponse(
                 call: Call<ResponseTemplate>,
                 response: Response<ResponseTemplate>

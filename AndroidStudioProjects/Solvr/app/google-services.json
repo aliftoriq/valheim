@@ -12,7 +12,20 @@
           "package_name": "com.example.solvr"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "466390029064-6kc6kl63vuapqbhe5tirtvo0cc0pfsh6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.solvr",
+            "certificate_hash": "8024f4bcba8b6ef51b5262e872a38373fc4778e8"
+          }
+        },
+        {
+          "client_id": "466390029064-ethrnlqhq0s8f84h0kjb9cc1i8lamf83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD9HaYY1u-eSmyqzNHyHIsm2QDSbx_hJMg"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466390029064-ethrnlqhq0s8f84h0kjb9cc1i8lamf83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

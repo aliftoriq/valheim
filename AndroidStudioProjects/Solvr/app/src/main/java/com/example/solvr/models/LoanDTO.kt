@@ -14,6 +14,12 @@ class LoanDTO {
         val status: Int? = null
     )
 
+    data class ResponseApplyLoan(
+        val data: Any? = null,
+        val message: String? = null,
+        val status: Int? = null
+    )
+
     data class PlafonPackage(
         val interestRate: Any? = null,
         val amount: Int? = null,

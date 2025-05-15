@@ -1,22 +1,31 @@
 package com.example.solvr.ui.profile
 
+import android.Manifest
 import android.app.DatePickerDialog
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.solvr.R
 import com.example.solvr.models.UserDTO
 import com.example.solvr.ui.editProfile.EditProfileViewModel
+import com.example.solvr.utils.FileUtil
 import com.example.solvr.utils.SessionManager
 import com.google.android.material.textfield.TextInputLayout
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -41,6 +50,64 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var btnSave: Button
     private lateinit var btnEdit: Button
 
+    private var imageTypeToUpload: String? = null
+    private lateinit var ivProfilePicture: ImageView
+    private lateinit var ivKtp: ImageView
+    private lateinit var ivSelfie: ImageView
+
+    private val imagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                ivProfilePicture = findViewById(R.id.ivProfilePicture)
+                ivKtp = findViewById(R.id.ivKtp)
+                ivSelfie = findViewById(R.id.ivSelfie)
+
+                val file = FileUtil.from(this, uri)
+                when (imageTypeToUpload) {
+                    "profile" -> {
+                        ivProfilePicture.setImageURI(uri)
+                        viewModel.uploadProfilePicture(this, file)
+                    }
+
+                    "ktp" -> {
+                        ivKtp.setImageURI(uri)
+                        viewModel.uploadKtp(this, file)
+                    }
+
+                    "selfie" -> {
+                        ivSelfie.setImageURI(uri)
+                        viewModel.uploadSelfie(this, file)
+                    }
+                }
+            }
+        }
+
+    private lateinit var cameraImageUri: Uri
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                when (imageTypeToUpload) {
+                    "profile" -> {
+                        ivProfilePicture.setImageURI(cameraImageUri)
+                        FileUtil.from(this, cameraImageUri)
+                            ?.let { viewModel.uploadProfilePicture(this, it) }
+                    }
+
+                    "ktp" -> {
+                        ivKtp.setImageURI(cameraImageUri)
+                        FileUtil.from(this, cameraImageUri)?.let { viewModel.uploadKtp(this, it) }
+                    }
+
+                    "selfie" -> {
+                        ivSelfie.setImageURI(cameraImageUri)
+                        FileUtil.from(this, cameraImageUri)
+                            ?.let { viewModel.uploadSelfie(this, it) }
+                    }
+                }
+            }
+        }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -48,6 +115,27 @@ class EditProfileActivity : AppCompatActivity() {
         val sessionManager: SessionManager by lazy {
             SessionManager(this)
         }
+
+        ivProfilePicture = findViewById(R.id.ivProfilePicture)
+        ivKtp = findViewById(R.id.ivKtp)
+        ivSelfie = findViewById(R.id.ivSelfie)
+
+
+        ivProfilePicture.setOnClickListener {
+            imageTypeToUpload = "profile"
+            requestPermissionsFile()
+        }
+
+        ivKtp.setOnClickListener {
+            imageTypeToUpload = "ktp"
+            requestPermissionsFile()
+        }
+
+        ivSelfie.setOnClickListener {
+            imageTypeToUpload = "selfie"
+            requestPermissionsFile()
+        }
+
 
         val displayName = findViewById<TextView>(R.id.displayName)
 
@@ -104,7 +192,21 @@ class EditProfileActivity : AppCompatActivity() {
                 if (!etMonthlyIncome.isEnabled) user.monthlyIncome?.let {
                     etMonthlyIncome.setText(it.toString())
                 }
-                if (!housingStatusDropdown.isEnabled) housingStatusDropdown.setText(user.housingStatus, false)
+                if (!housingStatusDropdown.isEnabled) housingStatusDropdown.setText(
+                    user.housingStatus,
+                    false
+                )
+
+                if (user.urlProfilePicture != null) {
+                    loadImageFromUrl(user.urlProfilePicture, ivProfilePicture)
+                }
+                if (user.urlKtp != null) {
+                    loadImageFromUrl(user.urlKtp, ivKtp)
+                }
+                if (user.urlSelfie != null) {
+                    loadImageFromUrl(user.urlSelfie, ivSelfie)
+                }
+
             }
         }
 
@@ -131,7 +233,8 @@ class EditProfileActivity : AppCompatActivity() {
 
         viewModel.navigateToLogin.observe(this) { shouldNavigate ->
             if (shouldNavigate == true) {
-                Toast.makeText(this, "Session expired, silakan login ulang", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Session expired, silakan login ulang", Toast.LENGTH_LONG)
+                    .show()
                 finish()
             }
         }
@@ -154,7 +257,8 @@ class EditProfileActivity : AppCompatActivity() {
                 try {
                     monthlyIncomeText.toDouble()
                 } catch (e: NumberFormatException) {
-                    Toast.makeText(this, "Format Pemasukan Bulanan tidak valid", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Format Pemasukan Bulanan tidak valid", Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 }
             } else null
@@ -194,7 +298,8 @@ class EditProfileActivity : AppCompatActivity() {
             } else {
                 setFormEnabled(true)
                 btnEdit.text = "Cancel"
-                btnEdit.backgroundTintList = ContextCompat.getColorStateList(this, R.color.secondary)
+                btnEdit.backgroundTintList =
+                    ContextCompat.getColorStateList(this, R.color.secondary)
                 Toast.makeText(this, "Form bisa diubah sekarang", Toast.LENGTH_SHORT).show()
             }
         }
@@ -236,5 +341,80 @@ class EditProfileActivity : AppCompatActivity() {
         etMonthlyIncome.isEnabled = enabled
         btnSave.isEnabled = enabled
     }
+
+    private fun loadImageFromUrl(url: String, imageView: ImageView) {
+        Thread {
+            try {
+                val inputStream = java.net.URL(url).openStream()
+                val bitmap = android.graphics.BitmapFactory.decodeStream(inputStream)
+                runOnUiThread {
+                    imageView.setImageBitmap(bitmap)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }.start()
+    }
+
+    private fun openCamera() {
+        val photoFile = File.createTempFile("IMG_", ".jpg", cacheDir)
+        cameraImageUri = FileProvider.getUriForFile(
+            this,
+            "com.example.solvr.provider",
+            photoFile
+        )
+        cameraLauncher.launch(cameraImageUri)
+    }
+
+
+    private fun showImagePickerOptions() {
+        val options = arrayOf("Ambil dari Kamera", "Pilih dari Galeri")
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("Pilih Gambar")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> openCamera()
+                    1 -> imagePickerLauncher.launch("image/*")
+                }
+            }.show()
+    }
+
+    private fun requestPermissionsFile() {
+        val permissions = mutableListOf<String>()
+
+        // Memeriksa versi Android dan menambahkan permission yang sesuai
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Untuk Android 13 (API 33) dan lebih tinggi
+            permissions.add(Manifest.permission.READ_MEDIA_IMAGES)
+        } else {
+            // Untuk versi Android sebelum API 33
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        permissions.add(Manifest.permission.CAMERA)
+
+
+        permissionLauncher.launch(permissions.toTypedArray())
+    }
+
+    // Fungsi yang dipanggil saat meminta izin
+    private val permissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val cameraGranted = permissions[Manifest.permission.CAMERA] == true
+        val storageGranted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissions[Manifest.permission.READ_MEDIA_IMAGES] == true
+        } else {
+            permissions[Manifest.permission.READ_EXTERNAL_STORAGE] == true
+        }
+
+        if (cameraGranted && storageGranted) {
+            showImagePickerOptions()
+
+        } else {
+            Toast.makeText(this, "Izin kamera dan penyimpanan diperlukan", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
 }

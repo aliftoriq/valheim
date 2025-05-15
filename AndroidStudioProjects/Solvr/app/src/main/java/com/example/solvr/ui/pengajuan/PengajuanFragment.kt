@@ -1,7 +1,10 @@
 package com.example.solvr.ui.pengajuan
 
 import android.annotation.SuppressLint
+import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +16,15 @@ import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.os.postDelayed
 import androidx.lifecycle.ViewModelProvider
 import com.example.solvr.R
+import com.example.solvr.models.LoanDTO
+import com.example.yourapp.utils.SwitchAllertCustom
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButtonToggleGroup
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import java.text.NumberFormat
 import java.util.Locale
@@ -29,16 +38,19 @@ class PengajuanFragment : Fragment() {
     private lateinit var txtTotalPembayaran: TextView
     private lateinit var btnSubmitLoan: Button
     private lateinit var viewModel: PengajuanViewModel
+    private lateinit var loanCard: CardView
 
     private lateinit var tvName: TextView
     private lateinit var tvPlafonPackage: TextView
     private lateinit var tvRekening: TextView
     private lateinit var tvActiveLoan: TextView
 
-
+    private lateinit var shimmerLayout: ShimmerFrameLayout
 
     private var selectedAmount: Int = 1_000_000
     private var selectedTenor: Int = 6
+    private var interestRate: Double = 0.015
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +70,13 @@ class PengajuanFragment : Fragment() {
 // Terapkan animasi ke masing-masing view
         view.findViewById<FrameLayout>(R.id.headerContainer).startAnimation(animBottom)
 
+        // Init shimmer AFTER inflating the view
+        shimmerLayout = view.findViewById(R.id.shimmerLoanCard)
+        shimmerLayout.startShimmer()
+
+        loanCard = view.findViewById(R.id.loanCard)
+        loanCard.visibility = View.GONE
+
         seekBar = view.findViewById(R.id.seekLoanAmount)
         toggleGroup = view.findViewById(R.id.tenorToggleGroup)
         edtLoanAmount = view.findViewById(R.id.edtLoanAmount)
@@ -70,7 +89,6 @@ class PengajuanFragment : Fragment() {
         tvPlafonPackage = view.findViewById(R.id.etPlafonPackage)
         tvRekening = view.findViewById(R.id.etRekening)
         tvActiveLoan = view.findViewById(R.id.ecActiveLoan)
-
 
 
         // Update nominal pinjaman
@@ -101,8 +119,53 @@ class PengajuanFragment : Fragment() {
 
         // Ajukan pinjaman
         btnSubmitLoan.setOnClickListener {
-            Toast.makeText(requireContext(), "Pengajuan Rp${formatRupiah(selectedAmount)} selama $selectedTenor bulan berhasil diajukan!", Toast.LENGTH_LONG).show()
-            // Tambahkan navigasi atau logika pengajuan di sini
+            val switchAlert = SwitchAllertCustom(view.context)
+
+            switchAlert.show(
+                message = "Apakah Anda yakin untuk mengajukan?",
+                onYes = {
+                    val request = LoanDTO.Request(
+                        loanAmount = selectedAmount.toDouble(),
+                        loanTenor = selectedTenor,
+                        longitude = -6.41139732817393,
+                        latitude = 106.84153425146367
+                    )
+
+                    viewModel.applyLoan(request)
+                    loanCard.visibility = View.INVISIBLE
+                    shimmerLayout.startShimmer()
+                    shimmerLayout.visibility = View.VISIBLE
+                },
+                onNo = {
+
+                }
+            )
+        }
+
+        viewModel.loanDetail.observe(viewLifecycleOwner) { response ->
+            response?.let {
+                Toast.makeText(requireContext(), "Pengajuan berhasil: ${it.message}", Toast.LENGTH_SHORT).show()
+                viewModel.fetchLoanSummary()
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    loanCard.visibility = View.VISIBLE
+                    loanCard.startAnimation(animBottom)
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
+                }, 1000)
+            }
+        }
+
+        viewModel.isExceedPlafon.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
         }
 
         updateSimulation()
@@ -115,6 +178,15 @@ class PengajuanFragment : Fragment() {
                 val activeLoan = (it.data?.remainingLoan ?: 0).toString().toDoubleOrNull() ?: 0.0
                 tvActiveLoan.text = formatRupiah(activeLoan.toInt())
 
+                interestRate = (it.data?.plafonPackage?.interestRate ?: 0.015) as Double
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    loanCard.visibility = View.VISIBLE
+                    loanCard.startAnimation(animBottom)
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
+                }, 1000)
+
             }
         }
 
@@ -122,13 +194,19 @@ class PengajuanFragment : Fragment() {
 
         viewModel.errorMessage.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                loanCard.visibility = View.VISIBLE
+                loanCard.startAnimation(animBottom)
+                shimmerLayout.stopShimmer()
+                shimmerLayout.visibility = View.GONE
+            }, 1000)
         }
 
     }
 
     @SuppressLint("SetTextI18n")
     private fun updateSimulation() {
-        val interestRate = 0.12 // 12% flat interest
+        interestRate = 0.015
         val totalInterest = selectedAmount * interestRate
         val totalPayment = selectedAmount + totalInterest
         val monthlyInstallment = totalPayment / selectedTenor

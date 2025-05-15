@@ -2,14 +2,14 @@
     android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <!-- Profile Picture -->
         <ImageView
@@ -17,52 +17,61 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/icon_solver" />
+            android:background="@drawable/icon_solver"
+            android:scaleType="centerCrop" />
 
         <!-- Username -->
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:text="Alif Toriq"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:textColor="@color/primary"
-            android:layout_marginBottom="32dp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <!-- Options -->
         <TextView
             android:id="@+id/btnEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            android:textSize="16sp"
-            android:paddingVertical="12dp"
             android:background="?android:attr/selectableItemBackground"
-            android:paddingHorizontal="16dp" />
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="Edit Profile"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/btnHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="History"
-            android:textSize="16sp"
-            android:paddingVertical="12dp"
             android:background="?android:attr/selectableItemBackground"
-            android:paddingHorizontal="16dp" />
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="History"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:text="Change Password"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
             android:text="Logout"
             android:textColor="#EF4444"
-            android:textSize="16sp"
-            android:paddingVertical="12dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingHorizontal="16dp" />
-
+            android:textSize="16sp" />
 
 
     </LinearLayout>

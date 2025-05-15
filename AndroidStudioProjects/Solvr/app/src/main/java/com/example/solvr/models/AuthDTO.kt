@@ -6,6 +6,15 @@ class AuthDTO {
         val password: String
     )
 
+    data class ChangePasswordRequest(
+        val oldPassword: String,
+        val newPassword: String
+    )
+
+    data class ForgotPasswordRequest(
+        val username: String
+    )
+
     data class LoginResponse(
         val status: Int,
         val message: String,
